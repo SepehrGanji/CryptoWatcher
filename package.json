@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "fastify": "^4.0.0",
     "fastify-plugin": "^4.0.0",
