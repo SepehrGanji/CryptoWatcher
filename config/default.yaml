@@ -1,2 +1,6 @@
-api:
-  port: 3030
+database:
+  host:
+  port:
+  username:
+  password:
+  name:

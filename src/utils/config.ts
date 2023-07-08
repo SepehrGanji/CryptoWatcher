@@ -19,7 +19,11 @@ const getNumericalConfigOrDefault = (key: string, defaultValue: number) => {
 };
 
 export class Config {
-  static api = {
-    port: getNumericalConfigOrDefault('api.port', 3000),
+  static database = {
+    host: config.get('database.host'),
+    port: getNumericalConfigOrDefault('database.port', 5432),
+    username: config.get('database.username'),
+    password: config.get('database.password'),
+    name: config.get('database.name'),
   };
 }
