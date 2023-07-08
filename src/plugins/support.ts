@@ -1,6 +1,7 @@
-import fp from 'fastify-plugin'
+import fp from 'fastify-plugin';
 
 export interface SupportPluginOptions {
+  // eslint-disable-line
   // Specify Support plugin options here
 }
 
@@ -8,9 +9,9 @@ export interface SupportPluginOptions {
 // to export the decorators to the outer scope
 export default fp<SupportPluginOptions>(async (fastify, opts) => {
   fastify.decorate('someSupport', function () {
-    return 'hugs'
-  })
-})
+    return 'hugs';
+  });
+});
 
 // When using .decorate you have to specify added properties for Typescript
 declare module 'fastify' {
