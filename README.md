@@ -1,3 +1,3 @@
 # CryptoWatcher
 
-The README will complete soon.
+The README will be completed soon.
