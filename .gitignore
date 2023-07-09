@@ -63,3 +63,6 @@ test/types/index.js
 
 # compiled app
 dist
+
+# local configs
+config/local*.yaml
