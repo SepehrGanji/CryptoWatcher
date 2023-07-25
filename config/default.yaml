@@ -1,6 +1,6 @@
 database:
-  host: localhost
-  port: 5432
-  username: test
-  password: testpassword123456
-  name: test
+  host: 
+  port: 
+  username: 
+  password: 
+  name: 
