@@ -61,7 +61,16 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Create SQLite database file
-        run: touch ./test/test.db
+        run: |
+          sqlite3 ./test/test.db <<EOF
+          CREATE TABLE users (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL
+          );
+          -- Add more table creation SQL statements as needed...
+          EOF
 
       - name: Run tests with SQLite
         run: yarn test
