@@ -62,9 +62,10 @@ jobs:
 
       - name: Create temporary SQLite database
         run: |
-          sqlite3 ./test.db < ./db/schema.sql
+          touch ./test/test.db
+          echo 'CREATE TABLE IF NOT EXISTS example (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);' | sqlite3 ./test/test.db
         env:
-          DATABASE_URL: ./test.db
+          DATABASE_URL: ./test/test.db
 
       - name: Run tests with SQLite
         run: yarn test
@@ -72,4 +73,4 @@ jobs:
           DATABASE_URL: ${{ env.DATABASE_URL }}
 
       - name: Delete temporary SQLite database
-        run: rm ./test.db
+        run: rm ./test/test.db
