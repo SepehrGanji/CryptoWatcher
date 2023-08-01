@@ -63,7 +63,7 @@ jobs:
       - name: Create temporary SQLite database
         run: |
           touch ./test/test.db
-          echo 'CREATE TABLE IF NOT EXISTS example (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);' | sqlite3 ./test/test.db
+          sqlite3 ./test/test.db < ./test/schema.sql
         env:
           DATABASE_URL: ./test/test.db
 
