@@ -68,7 +68,7 @@ jobs:
       - name: Run tests with SQLite
         run: yarn test
         env:
-          DATABASE_URL: ./test.db
-
+          DATABASE_URL: ./db/test.db
+  
       - name: Delete SQLite database
-        run: rm ./test.db
+        run: rm ./db/test.db
