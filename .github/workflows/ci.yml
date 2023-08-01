@@ -60,15 +60,16 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Set up SQLite database
-        run: sqlite3 ./test/test.db < ./test/schema.sql
+      - name: Create temporary SQLite database
+        run: |
+          sqlite3 ./test.db < ./db/schema.sql
         env:
-          DATABASE_URL: ./test/test.db
+          DATABASE_URL: ./test.db
 
       - name: Run tests with SQLite
         run: yarn test
         env:
-          DATABASE_URL: ./test/test.db
-  
-      - name: Delete SQLite database
-        run: rm ./test/test.db 
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+
+      - name: Delete temporary SQLite database
+        run: rm ./test.db
