@@ -61,9 +61,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Set up SQLite database
-        run: sqlite3 test.db < schema.sql
+        run: sqlite3 ./db/test.db < ./db/schema.sql
         env:
-          DATABASE_URL: ./test.db
+          DATABASE_URL: ./db/test.db
 
       - name: Run tests with SQLite
         run: yarn test
