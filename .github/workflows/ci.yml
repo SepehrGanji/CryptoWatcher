@@ -5,6 +5,10 @@ on:
     branches:
       - '*'
 
+env:
+  DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+  TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}      
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -58,4 +62,6 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test
+        run: |
+          NODE_ENV=test yarn build:ts
+          NODE_ENV=test yarn test
