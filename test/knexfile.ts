@@ -1,4 +1,3 @@
-// test/knexfile.ts
 import { Knex } from 'knex';
 
 const config: Knex.Config = {
