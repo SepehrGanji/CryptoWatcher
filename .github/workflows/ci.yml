@@ -63,11 +63,11 @@ jobs:
       - name: Create SQLite database file
         run: touch ./test/test.db
   
-      - name: Run migrations
-        run: yarn knex migrate:latest --knexfile ./test/knexfile.ts
-  
       - name: Run tests with SQLite
-        run: yarn test
+        run: yarn jest
+        env:
+          DATABASE_URL: ./test/test.db
   
       - name: Delete SQLite database
         run: rm ./test/test.db
+  
