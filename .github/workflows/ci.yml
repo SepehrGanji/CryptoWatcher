@@ -64,10 +64,10 @@ jobs:
         run: touch ./test/test.db
   
       - name: Run migrations
-        run: yarn knex migrate:latest --knexfile ./test/knexfile.js
+        run: yarn knex migrate:latest --knexfile ./test/knexfile.ts
   
       - name: Run tests with SQLite
-        run: yarn jest
+        run: yarn test
   
       - name: Delete SQLite database
-        run: rm ./test/test.db  
+        run: rm ./test/test.db
