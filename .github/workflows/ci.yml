@@ -56,26 +56,18 @@ jobs:
 
       - name: Install SQLite
         run: sudo apt-get install sqlite3 libsqlite3-dev
-
+  
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-
+  
       - name: Create SQLite database file
-        run: |
-          sqlite3 ./test/test.db <<EOF
-          CREATE TABLE users (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
-          );
-          -- Add more table creation SQL statements as needed...
-          EOF
-
+        run: touch ./test/test.db
+  
+      - name: Run migrations
+        run: yarn knex migrate:latest --knexfile ./test/knexfile.js
+  
       - name: Run tests with SQLite
-        run: yarn test
-        env:
-          DATABASE_URL: ./test/test.db
-
+        run: yarn jest
+  
       - name: Delete SQLite database
-        run: rm ./test/test.db
+        run: rm ./test/test.db  
