@@ -1,10 +1,15 @@
 import { DataSource } from 'typeorm';
+
 import { Config } from './utils/config';
 
-export const dataSource = process.env.NODE_ENV === 'test' ? createTestDataSource() : createProductionDataSource();
-
-function createProductionDataSource() {
-  return new DataSource({
+let dataSource: DataSource;
+if (process.env.NODE_ENV === 'test') {
+  dataSource = new DataSource({
+    type: 'sqlite',
+    database: Config.database.name
+  });
+} else {
+  dataSource = new DataSource({
     type: 'postgres',
     host: Config.database.host,
     port: Config.database.port,
@@ -16,11 +21,4 @@ function createProductionDataSource() {
   });
 }
 
-function createTestDataSource() {
-  return new DataSource({
-    type: 'sqlite',
-    database: './test/test.db', // Change this path to your desired location for the test SQLite database file
-    synchronize: true,
-    logging: false,
-  });
-}
+export { dataSource };
