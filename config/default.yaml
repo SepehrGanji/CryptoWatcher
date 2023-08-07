@@ -1,6 +1,6 @@
 database:
-  host:
-  port:
-  username:
-  password:
-  name:
+  host: 
+  port: 
+  username: 
+  password: 
+  name: 
