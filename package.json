@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "rm -rf ./sqlite && NODE_ENV=\"test\" && npm run build:ts && tsc -p test/tsconfig.json && tap --ts \"test/**/*.test.ts\"",
+    "test": "NODE_ENV=test mocha && npm run build:ts && tsc -p test/tsconfig.json && tap --ts \"test/**/*.test.ts\"",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
     "watch:ts": "tsc -w",
@@ -43,6 +43,7 @@
     "fastify-tsconfig": "^1.0.1",
     "jest": "^29.6.2",
     "knex": "^2.5.1",
+    "mocha": "^10.2.0",
     "prettier": "^3.0.0",
     "sqlite3": "^5.1.6",
     "tap": "^16.1.0",
