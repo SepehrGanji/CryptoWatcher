@@ -36,9 +36,6 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        run: yarn install
-
       - name: Build code
         run: yarn build:ts
 
@@ -60,16 +57,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
   
-      - name: Create SQLite database file
-        run: touch ./test/test.db
-  
       - name: Set environment variables for test
         run: echo "DATABASE_URL=./test/test.db" >> $GITHUB_ENV
   
       - name: Run tests with SQLite
         run: yarn test
-  
-      - name: Delete SQLite database
-        run: rm ./test/test.db
-  
-        
