@@ -82,7 +82,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install 
   
       - name: Set environment variables for test
         run: echo "DATABASE_URL=./test/test.db" >> $GITHUB_ENV
