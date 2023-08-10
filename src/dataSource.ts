@@ -6,7 +6,7 @@ let dataSource: DataSource;
 if (process.env.NODE_ENV === 'test') {
   dataSource = new DataSource({
     type: 'sqlite',
-    database: Config.database.name
+    database: Config.database.path
   });
 } else {
   dataSource = new DataSource({
