@@ -9,6 +9,8 @@ export const dataSource = new DataSource({
   username: Config.database.username,
   password: Config.database.password,
   database: Config.database.name,
+  entities: [__dirname + '/db/entities/*.js'], 
+  migrations: [__dirname + '/db/migrations/postgres/*.js'], 
   synchronize: false,
   logging: false,
 });
