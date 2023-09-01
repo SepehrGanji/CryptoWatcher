@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "NODE_ENV=test npm run build:ts && tsc -p test/tsconfig.json && tap --ts \"test/**/*.test.ts\"",
+    "test": "NODE_ENV=test npm run build:ts && tsc -p test/tsconfig.json && tap --ts \"test/**/*.test.ts\" --no-check-coverage && (if [ -f ./test/test.db ]; then rm ./test/test.db; fi)",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
     "watch:ts": "tsc -w",
