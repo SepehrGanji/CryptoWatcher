@@ -84,5 +84,8 @@ jobs:
       - name: Install dependencies
         run: yarn install 
   
+      - name: Set environment variables for test
+        run: echo "DATABASE_URL=./test/test.db" >> $GITHUB_ENV
+  
       - name: Run tests with SQLite
         run: yarn test
