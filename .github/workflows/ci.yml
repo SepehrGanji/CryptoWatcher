@@ -87,8 +87,5 @@ jobs:
       - name: Set environment variables for test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
   
-      - name: Create SQLite test database
-        run: sqlite3 ./test/test.db < ./test/schema.sql
-  
       - name: Run tests with SQLite
         run: yarn test
