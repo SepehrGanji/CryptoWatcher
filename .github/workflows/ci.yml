@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-        working-directory: ./CryptoWatcher
+        working-directory: /home/runner/work/CryptoWatcher
 
   lint:
     needs: common
