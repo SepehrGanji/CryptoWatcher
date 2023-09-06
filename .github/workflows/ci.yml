@@ -31,7 +31,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-        working-directory: /home/runner/work/CryptoWatcher
 
   lint:
     needs: common
@@ -40,6 +39,7 @@ jobs:
     steps:
       - name: Lint code
         run: yarn lint
+        working-directory: /home/runner/work/CryptoWatcher
 
   build:
     needs: common
@@ -48,6 +48,7 @@ jobs:
     steps:
       - name: Build code
         run: yarn build:ts
+        working-directory: /home/runner/work/CryptoWatcher
 
   test:
     needs: common
@@ -59,3 +60,4 @@ jobs:
 
       - name: Run tests with SQLite
         run: yarn test
+        working-directory: /home/runner/work/CryptoWatcher
