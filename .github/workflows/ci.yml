@@ -6,7 +6,61 @@ on:
       - '*'
 
 jobs:
-  common:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Lint code
+        run: yarn lint
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Build code
+        run: yarn build:ts
+
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +75,7 @@ jobs:
       - name: Install SQLite
         run: sudo apt-get install sqlite3 libsqlite3-dev
 
-      - name: Cache node_modules
+      - name: Restore node_modules cache
         uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -29,33 +83,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: yarn install
-
-  lint:
-    needs: common
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: List Files in Working Directory
-        run: ls
-        
-      - name: Lint code
-        run: yarn lint
-
-  build:
-    needs: common
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Build code
-        run: yarn build:ts
-
-  test:
-    needs: common
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Set environment variables for test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
 
