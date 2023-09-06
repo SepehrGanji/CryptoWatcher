@@ -32,8 +32,11 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Find Package.json
-        run: find . -name package.json
+      - name: List Files in Working Directory
+        run: ls
+      
+      - name: Working Directory
+        run: pwd
 
   lint:
     needs: common
