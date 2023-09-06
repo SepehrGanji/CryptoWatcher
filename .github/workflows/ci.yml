@@ -52,9 +52,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: yarn install
-
       - name: Build code
         run: yarn build:ts
 
@@ -80,9 +77,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: yarn install 
   
       - name: Set environment variables for test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
