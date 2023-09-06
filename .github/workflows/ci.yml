@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Find Package.json
+        run: find . -name package.json
+
   lint:
     needs: common
     runs-on: ubuntu-latest
