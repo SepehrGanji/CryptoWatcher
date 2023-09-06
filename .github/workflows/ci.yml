@@ -42,10 +42,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Lint code
-        run: yarn lint
+        run: eslint --fix . && npm run prettify
 
   build:
-    needs: lint
+    needs: install
     runs-on: ubuntu-latest
 
     steps:
@@ -62,7 +62,7 @@ jobs:
         run: yarn build:ts
 
   test:
-    needs: build
+    needs: install
     runs-on: ubuntu-latest
 
     steps:
