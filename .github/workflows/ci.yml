@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  install:
+  main:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,92 +17,27 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         run: yarn install
 
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-  lint:
-    needs: install
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Lint code
         run: yarn lint
-
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Build code
         run: yarn build:ts
 
-  test:
-    needs: install
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
       - name: Install SQLite
         run: sudo apt-get install sqlite3 libsqlite3-dev
-  
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-  
+
       - name: Set environment variables for test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
-  
+
       - name: Run tests with SQLite
         run: yarn test
