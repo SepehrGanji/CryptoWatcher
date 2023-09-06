@@ -32,17 +32,14 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: List Files in Working Directory
-        run: ls
-      
-      - name: Working Directory
-        run: pwd
-
   lint:
     needs: common
     runs-on: ubuntu-latest
 
     steps:
+      - name: List Files in Working Directory
+        run: ls
+        
       - name: Lint code
         run: yarn lint
 
