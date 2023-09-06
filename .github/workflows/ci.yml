@@ -37,16 +37,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
       - name: Lint code
-        run: yarn lint
+        run: eslint --fix . && npm run prettify
 
   build:
-    needs: lint
+    needs: install
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build code
         run: yarn build:ts
@@ -61,6 +73,12 @@ jobs:
 
       - name: Install SQLite
         run: sudo apt-get install sqlite3 libsqlite3-dev
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Set environment variables for test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
