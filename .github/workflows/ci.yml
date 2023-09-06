@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  lint:
+  install:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,16 +23,19 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Restore node_modules cache
         uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Lint code
         run: yarn lint
@@ -44,18 +47,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
       - name: Restore node_modules cache
         uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
       - name: Build code
         run: yarn build:ts
@@ -67,6 +68,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -74,14 +81,6 @@ jobs:
 
       - name: Install SQLite
         run: sudo apt-get install sqlite3 libsqlite3-dev
-
-      - name: Restore node_modules cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Set environment variables for test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
