@@ -1,14 +1,14 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { Coin } from './coin';
 
 @Entity()
 export class CoinPrice {
-  @Column()
+  @PrimaryGeneratedColumn()
   id!: number;
 
   @Column(() => Coin)
   coin!: Coin;
 
-  @Column()
+  @Column({ type: 'decimal' })
   price!: number;
 }
