@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { Config } from './utils/config';
 import { Coin } from './db/entities/coin'; 
 import { CoinPrice } from './db/entities/coinPrice'; 
+import { CreateCoinAndCoinPriceTables1631234567894 } from './db/migrations/postgres/CreateCoinAndCoinPriceTables1631234567894'
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -11,7 +12,7 @@ export const dataSource = new DataSource({
   password: Config.database.password,
   database: Config.database.name,
   entities: [Coin, CoinPrice], 
-  migrations: [__dirname + '/db/migrations/postgres/*.js'],
+  migrations: [ CreateCoinAndCoinPriceTables1631234567894 ],
   synchronize: false,
-  logging: false,
+  logging: true,
 });
