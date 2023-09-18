@@ -14,5 +14,5 @@ export const dataSource = new DataSource({
   entities: [Coin, CoinPrice], 
   migrations: [ CreateCoinAndCoinPriceTables1631234567894 ],
   synchronize: false,
-  logging: true,
+  logging: false,
 });
