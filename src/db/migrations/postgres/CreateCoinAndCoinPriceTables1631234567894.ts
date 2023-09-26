@@ -5,16 +5,16 @@ export class CreateCoinAndCoinPriceTables1631234567894 implements MigrationInter
     await queryRunner.query(`
       CREATE TABLE coin (
         id serial PRIMARY KEY,
-        name varchar
+        symbol varchar,
+        name varchar,
+        total_supply float
       )
     `);
 
     await queryRunner.query(`
       CREATE TABLE coin_price (
         id serial PRIMARY KEY,
-        coinId integer,
-        price numeric,
-        FOREIGN KEY (coinId) REFERENCES coin (id) ON DELETE CASCADE
+        price float
       )
     `);
   }

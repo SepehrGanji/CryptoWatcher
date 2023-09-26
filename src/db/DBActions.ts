@@ -16,7 +16,6 @@ export class DBActions {
 
   async createCoinPrice(coin: Coin, price: number): Promise<CoinPrice> {
     const coinPrice = new CoinPrice();
-    coinPrice.coin = coin;
     coinPrice.price = price;
     return await this.coinPriceRepository.save(coinPrice);
   }

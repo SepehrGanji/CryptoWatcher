@@ -6,5 +6,11 @@ export class Coin {
   id!: number;
 
   @Column({ type: 'varchar' })
+  symbol!: string;
+
+  @Column({ type: 'varchar' })
   name!: string;
+
+  @Column({ type: 'float' })
+  total_supply!: number;
 }
