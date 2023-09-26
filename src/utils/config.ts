@@ -36,5 +36,6 @@ export class Config {
     username: getStringConfigOrDefault('database.username', ''),
     password: getStringConfigOrDefault('database.password', ''),
     name: getStringConfigOrDefault('database.name', ''),
+    path: getStringConfigOrDefault('database.path',''),
   };
 }
