@@ -1,6 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateCoinAndCoinPriceTables1631234567894 implements MigrationInterface {
+export class CreateCoinAndCoinPriceTables1631234567894
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE coin (
@@ -20,7 +22,6 @@ export class CreateCoinAndCoinPriceTables1631234567894 implements MigrationInter
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-
     await queryRunner.query('DROP TABLE coin_price');
     await queryRunner.query('DROP TABLE coin');
   }

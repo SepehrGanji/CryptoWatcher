@@ -9,5 +9,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "eol-last": ["error", "always"]
+  }
 }

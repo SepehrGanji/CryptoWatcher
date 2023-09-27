@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  main:      # TODO: check out artifacts
+  main: # TODO: check out artifacts
     runs-on: ubuntu-latest
 
     steps:

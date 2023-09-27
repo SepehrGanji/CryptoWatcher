@@ -5,7 +5,7 @@ import { CoinPrice } from './entities/coinPrice';
 export class DBActions {
   constructor(
     private readonly coinRepository: Repository<Coin>,
-    private readonly coinPriceRepository: Repository<CoinPrice>
+    private readonly coinPriceRepository: Repository<CoinPrice>,
   ) {}
 
   async createCoin(name: string): Promise<Coin> {
@@ -27,5 +27,4 @@ export class DBActions {
   async getAllCoinPrices(): Promise<CoinPrice[]> {
     return await this.coinPriceRepository.find();
   }
-
 }
