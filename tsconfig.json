@@ -3,7 +3,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "outDir": "dist",
-    "sourceMap": true
+    "sourceMap": true,
+    "experimentalDecorators": true
   },
   "include": ["src/**/*.ts"]
 }
