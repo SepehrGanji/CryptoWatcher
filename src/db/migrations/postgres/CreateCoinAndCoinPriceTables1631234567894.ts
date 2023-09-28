@@ -16,6 +16,7 @@ export class CreateCoinAndCoinPriceTables1631234567894
     await queryRunner.query(`
       CREATE TABLE coin_price (
         id serial PRIMARY KEY,
+        coinId integer,
         price float
       )
     `);
