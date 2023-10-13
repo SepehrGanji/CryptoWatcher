@@ -1,23 +1,51 @@
-import { Repository } from 'typeorm';
+import { Repository, DataSource } from 'typeorm';
 import { Coin } from './entities/coin';
 import { CoinPrice } from './entities/coinPrice';
 
 export class DBActions {
-  constructor(
-    private readonly coinRepository: Repository<Coin>,
-    private readonly coinPriceRepository: Repository<CoinPrice>,
-  ) {}
+  private static instance: DBActions;
+  dataSource!: DataSource;
+  coinRepository!: Repository<Coin>;
+  coinPriceRepository!: Repository<CoinPrice>;
 
-  async createCoin(name: string): Promise<Coin> {
+  init = (dataSource: DataSource) => {
+    this.dataSource = dataSource;
+    this.coinRepository = dataSource.getRepository(Coin);
+    this.coinPriceRepository = dataSource.getRepository(CoinPrice);
+  };
+
+  public static getInstance(
+    coinRepository: Repository<Coin>,
+    coinPriceRepository: Repository<CoinPrice>,
+  ): DBActions {
+    if (!DBActions.instance) {
+      DBActions.instance = new DBActions();
+    }
+    return DBActions.instance;
+  }
+  
+  async insertCoin(name: string, symbol: string, totalSupply: number): Promise<Coin> {
     const coin = new Coin();
     coin.name = name;
-    return await this.coinRepository.save(coin);
+    coin.symbol = symbol;
+    coin.total_supply = totalSupply;
+    return this.coinRepository.save(coin);
   }
 
-  async createCoinPrice(coin: Coin, price: number): Promise<CoinPrice> {
+  async insertCoinPrice(coinId: number, price: number): Promise<CoinPrice> {
     const coinPrice = new CoinPrice();
+    coinPrice.coinId = coinId;
     coinPrice.price = price;
-    return await this.coinPriceRepository.save(coinPrice);
+
+    return this.coinPriceRepository.save(coinPrice);
+  }
+
+  async findCoinId(coinName: string): Promise<number> {
+    const coin = await this.coinRepository.findOne({ where: { name: coinName } });
+    if (coin) {
+      return coin.id;
+    }
+    throw new Error('Coin not found');
   }
 
   async getAllCoins(): Promise<Coin[]> {
