@@ -1,7 +1,7 @@
 import { join } from 'path';
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync } from 'fastify';
-
+import { DBActions } from './db/DBActions'; 
 import { dataSource } from './dataSource';
 
 export type AppOptions = Partial<AutoloadPluginOptions>;
@@ -33,5 +33,6 @@ const app: FastifyPluginAsync<AppOptions> = async (
   });
 };
 
+export const dbinstance = new DBActions();
 export default app;
 export { app, options };
