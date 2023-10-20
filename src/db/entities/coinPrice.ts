@@ -6,7 +6,7 @@ export class CoinPrice {
   id!: number;
 
   @Column({ type: 'integer'})
-  coinId!: number;
+  coin_id!: number;
 
   @Column({ type: 'float' })
   price!: number;

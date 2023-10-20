@@ -3,6 +3,7 @@ import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync } from 'fastify';
 import { DBActions } from './db/DBActions'; 
 import { dataSource } from './dataSource';
+import { runScheduledJob } from './jobs/coinFetcherJob';
 
 export type AppOptions = Partial<AutoloadPluginOptions>;
 
@@ -31,8 +32,11 @@ const app: FastifyPluginAsync<AppOptions> = async (
     dir: join(__dirname, 'fetchers'),
     options: opts,
   });
+
+  runScheduledJob();
+
 };
 
-export const dbinstance = new DBActions();
+export const dbinstance = new DBActions(dataSource);
 export default app;
 export { app, options };
